@@ -1,0 +1,11 @@
+node_modules/
+dist/
+build/
+
+# dotenv environment variable files (any folder, any app)
+**/.env
+**/.env.*
+!**/.env.example
+
+# OS
+.DS_Store
