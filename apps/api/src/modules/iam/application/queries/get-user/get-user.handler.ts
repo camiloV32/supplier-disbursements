@@ -2,7 +2,7 @@ import { IQueryHandler, QueryHandler } from "@nestjs/cqrs";
 import { GetUserQuery } from "./get-user.query";
 import { UserReadModel } from "../../read-model/user.read-model";
 import { Inject, NotFoundException } from "@nestjs/common";
-import { UserRepository } from "src/modules/iam/domain/ports/user-repository.port";
+import { UserRepository } from "../../../domain/ports/user-repository.port";
 
 @QueryHandler(GetUserQuery)
 export class GetUserHandler implements IQueryHandler<GetUserQuery> {

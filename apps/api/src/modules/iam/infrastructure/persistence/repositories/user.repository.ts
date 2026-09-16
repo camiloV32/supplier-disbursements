@@ -18,4 +18,19 @@ export class TypeOrmUserRepository implements UserRepository {
 
         return ormEntity ? UserMapper.toDomain(ormEntity) : null;
     }
+
+    async findByEmail(email: string): Promise<User | null> {
+        const ormEntity = await this.ormRepository.findOne({
+            where: { email },
+            select: {
+                id: true,
+                email: true,
+                passwordHash: true,
+                role: true,
+                createdAt: true,
+            },
+        });
+
+        return ormEntity ? UserMapper.toDomain(ormEntity) : null;
+    }
 }

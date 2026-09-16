@@ -7,4 +7,8 @@ export const envVarsSchema: joi.ObjectSchema = joi.object({
     DB_USER: joi.string().required(),
     DB_PASSWORD: joi.string().required(),
     DB_NAME: joi.string().required(),
+    DB_LOGGING: joi.boolean().default(false),
+    DB_SYNC: joi.boolean().default(false),
+    JWT_SECRET: joi.string().required(),
+    JWT_EXPIRES_IN: joi.string().default('8h'),
 })
