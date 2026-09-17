@@ -16,10 +16,25 @@ services:
       timeout: 5s
       retries: 5
 
+  seed:
+    build:
+      context: ./apps/api
+      dockerfile: Dockerfile
+    image: supplier-disbursements-api:local
+    env_file:
+      - .env
+    environment:
+      DB_HOST: db
+    command: ["npm", "run", "seed:all:prod"]
+    depends_on:
+      db:
+        condition: service_healthy
+
   api:
     build:
       context: ./apps/api
       dockerfile: Dockerfile
+    image: supplier-disbursements-api:local
     restart: unless-stopped
     env_file:
       - .env
@@ -30,6 +45,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
+      seed:
+        condition: service_completed_successfully
 
   web:
     build:
