@@ -7,8 +7,8 @@ import { LoginCommand } from "../../../application/commands/login/login.command"
 import { GetUserQuery } from "../../../application/queries/get-user/get-user.query";
 import { UserReadModel } from "../../../application/read-model/user.read-model";
 import { LoginDto } from "./dto/login.dto";
-import { Public } from "../../../../../shared/decorators/public.decorator";
-import { CurrentUser } from "../../../../../shared/decorators/current-user.decorator";
+import { Public } from "@shared/decorators/public.decorator";
+import { CurrentUser } from "@shared/decorators/current-user.decorator";
 import { AUTH_COOKIE_NAME } from "./auth-cookie.constants";
 
 @Controller({
