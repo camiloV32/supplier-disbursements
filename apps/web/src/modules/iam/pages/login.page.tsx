@@ -2,6 +2,9 @@ import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/use-auth';
+import { Button } from '@/shared/components/button';
+import { Card } from '@/shared/components/card';
+import { TextField } from '@/shared/components/text-field';
 
 type LoginFormValues = {
   email: string;
@@ -30,30 +33,55 @@ export function LoginPage() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} noValidate>
-      <h1>Iniciar sesión</h1>
+    <div className="flex min-h-svh items-center justify-center bg-app-bg px-4 py-12">
+      <div className="w-full max-w-sm">
+        <div className="mb-6 text-center">
+          <h1 className="text-xl font-semibold text-slate-900">
+            Supplier Disbursements
+          </h1>
+          <p className="mt-1 text-sm text-slate-500">
+            Iniciá sesión para continuar
+          </p>
+        </div>
 
-      <label htmlFor="email">Email</label>
-      <input
-        id="email"
-        type="email"
-        {...register('email', { required: true })}
-      />
-      {errors.email && <span>El email es obligatorio</span>}
+        <Card>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            noValidate
+            className="flex flex-col gap-4"
+          >
+            <TextField
+              label="Email"
+              type="email"
+              autoComplete="email"
+              error={errors.email ? 'El email es obligatorio' : undefined}
+              {...register('email', { required: true })}
+            />
 
-      <label htmlFor="password">Contraseña</label>
-      <input
-        id="password"
-        type="password"
-        {...register('password', { required: true, minLength: 8 })}
-      />
-      {errors.password && <span>Mínimo 8 caracteres</span>}
+            <TextField
+              label="Contraseña"
+              type="password"
+              autoComplete="current-password"
+              error={errors.password ? 'Mínimo 8 caracteres' : undefined}
+              {...register('password', { required: true, minLength: 8 })}
+            />
 
-      {formError && <p role="alert">{formError}</p>}
+            {formError && (
+              <p role="alert" className="text-sm text-status-rejected">
+                {formError}
+              </p>
+            )}
 
-      <button type="submit" disabled={isSubmitting}>
-        {isSubmitting ? 'Ingresando...' : 'Ingresar'}
-      </button>
-    </form>
+            <Button
+              type="submit"
+              isLoading={isSubmitting}
+              className="mt-2 w-full"
+            >
+              {isSubmitting ? 'Ingresando...' : 'Ingresar'}
+            </Button>
+          </form>
+        </Card>
+      </div>
+    </div>
   );
 }
