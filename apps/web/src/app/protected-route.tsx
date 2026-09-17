@@ -1,8 +1,9 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import { useAuth } from '@/modules/iam/context/use-auth';
+import type { UserRole } from '@/modules/iam/types/auth-user.type';
 
-export function ProtectedRoute() {
-  const { status } = useAuth();
+export function ProtectedRoute({ roles }: { roles?: UserRole[] }) {
+  const { status, user } = useAuth();
 
   if (status === 'loading') {
     return (
@@ -18,6 +19,10 @@ export function ProtectedRoute() {
 
   if (status === 'unauthenticated') {
     return <Navigate to="/login" replace />;
+  }
+
+  if (roles && user && !roles.includes(user.role)) {
+    return <Navigate to="/" replace />;
   }
 
   return <Outlet />;

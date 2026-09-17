@@ -1,4 +1,5 @@
 import type { ReactNode } from 'react';
+import { Link } from 'react-router-dom';
 import { useAuth } from '@/modules/iam/context/use-auth';
 import { Badge } from '@/shared/components/badge';
 import { Button } from '@/shared/components/button';
@@ -10,9 +11,22 @@ export function AppShell({ children }: { children: ReactNode }) {
     <div className="min-h-svh bg-app-bg">
       <header className="border-b border-slate-200 bg-surface">
         <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3 px-4 py-4 sm:px-6">
-          <span className="text-lg font-semibold text-slate-900">
-            Supplier Disbursements
-          </span>
+          <div className="flex items-center gap-6">
+            <span className="text-lg font-semibold text-slate-900">
+              Supplier Disbursements
+            </span>
+
+            {user && (
+              <nav className="hidden items-center gap-4 text-sm font-medium text-slate-600 sm:flex">
+                <Link
+                  to="/disbursement-requests"
+                  className="hover:text-primary-600"
+                >
+                  Solicitudes
+                </Link>
+              </nav>
+            )}
+          </div>
 
           {user && (
             <div className="flex items-center gap-3">
